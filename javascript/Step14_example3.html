@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example3.html</title>
+</head>
+<body>
+<button id="printBtn">출력하기</button>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+	var names=["김구라","해골","원숭이","주뎅이","덩어리"];
+	/*
+		출력하기 버튼을 눌렀을때 배열에 저장된 문자열을 순서대로
+		div 의 innerText 로 출력해 보세요.
+	*/
+	document.querySelector("#printBtn")
+		.addEventListener("click", function(){
+			// 모든 div 의 참조값 배열에 담아오기
+			var divs=document.querySelectorAll("div");
+			//반복문 돌면서 출력하기 
+			for(var i=0; i<divs.length; i++){
+				divs[i].innerText=names[i];
+			}
+		});
+</script>
+</body>
+</html>

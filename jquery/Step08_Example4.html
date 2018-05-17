@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_Example4.html</title>
+	<style>
+		.wrapper{
+			width: 400px;
+			height: 400px;
+			border: 1px solid red;
+			position: relative;
+			overflow: hidden;
+		}
+		.wrapper img{
+			width: 400px;
+			position: absolute;
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<img src="images/image1.png"/>
+	<img src="images/image2.png"/>
+	<img src="images/image3.png"/>
+	<img src="images/image4.png"/>
+	<img src="images/image5.png"/>
+</div>
+<button id="prevBtn">&laquo;</button>
+<button id="nextBtn">&raquo;</button>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+
+	$(".wrapper img").each(function(index){
+		// index 에 400 을 곱한 값을 얻어낸다. 
+		var left=index*400;
+		$(this).css("left", left+"px");
+	});
+
+	//이미지의 마지막 인덱스
+	var lastIndex=$(".wrapper img").length - 1;
+
+	//현재 보여주고 있는 이미지의 인덱스 
+	var currentIndex=0;
+
+	//마우스가 .wrapper 에 올렸는지 여부 
+	var isMouseOver=false;
+
+	//마우스를 올렸을때 실행할 함수 등록 
+	$(".wrapper").on("mouseover", function(){
+		isMouseOver=true;
+	});
+
+	//마우스가 나갔을때 실행할 함수 등록 
+	$(".wrapper").on("mouseout", function(){
+		isMouseOver=false;
+	});
+
+	setInterval(function(){
+		//만일 마우스가 .wrapper 에 올렸으면 
+		if(isMouseOver){
+			return; //함수 종료 
+		}
+
+		//만일 지금이 마지막 인덱스라면 
+		if(currentIndex==lastIndex){
+
+			//인덱스 초기화 
+			currentIndex=0;
+			//움직일 거리
+			var left=lastIndex*400;
+			//왼쪽으로 움직이기 
+			$(".wrapper img").animate({
+				left:"+="+left+"px"
+			},200);
+
+			return; //함수 종료 
+		}
+		//인덱스 증가 시키기 
+		currentIndex++;
+
+		$(".wrapper img").animate({
+			left:"-=400px"
+		});
+	}, 1000);
+
+	$("#nextBtn").click(function(){
+
+		//만일 지금이 마지막 인덱스라면 
+		if(currentIndex==lastIndex){
+			return; //함수 종료 
+		}
+		//인덱스 증가 시키기 
+		currentIndex++;
+
+		$(".wrapper img").animate({
+			left:"-=400px"
+		});
+	});
+
+	$("#prevBtn").click(function(){
+		//만일 제일 첫번째 인덱스라면 
+		if(currentIndex==0){
+			return; //함수 종료 
+		}
+		//인덱스 감소 시키기 
+		currentIndex--;
+
+		$(".wrapper img").animate({
+			left:"+=400px"
+		});
+	});
+
+</script>	
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step12_example.html</title>
+</head>
+<body>
+<h3>산술 연산자 테스트</h3>
+<input type="text" id="one"/>
+<button onclick="add()">+</button>
+<button onclick="minus()">-</button>
+<button onclick="gob()">*</button>
+<input type="text" id="two"/>
+<strong>=</strong>
+<input type="text" id="result"/>
+<script>
+	// + 버튼을 눌렀을때 호출되는 함수 
+	var add=function(){
+		var num1=document.querySelector("#one").value;
+		var num2=document.querySelector("#two").value;
+
+		var result=parseFloat(num1)+parseFloat(num2);
+
+		document.querySelector("#result").value=result;
+	};
+	// - 버튼을 눌렀을때 호출되는 함수 
+	var minus=function(){
+		var num1=document.querySelector("#one").value;
+		var num2=document.querySelector("#two").value;
+
+		var result=parseFloat(num1)-parseFloat(num2);
+
+		document.querySelector("#result").value=result;
+	};
+	// * 버튼을 눌렀을때 호출되는 함수 
+	var gob=function(){
+		var num1=document.querySelector("#one").value;
+		var num2=document.querySelector("#two").value;
+
+		var result=parseFloat(num1)*parseFloat(num2);
+
+		document.querySelector("#result").value=result;
+	};
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+	//정규 표현식 객체
+	/*
+	1.특정 문자열에 gura가 포함 되었는지의 여부를 검사가능
+	2.특정 문자열에 포함된 gura를 모두 추출 가능
+	*/
+	var reg=/gura/;
+
+	var str1="I am gura";
+	var str2="You are a monkey"
+
+	var result1=reg.test(str1);
+	var result2=reg.test(str2);
+</script>
+</body>
+</html>

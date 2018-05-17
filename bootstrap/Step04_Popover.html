@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Step04_Popoever.html</title>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+</head>
+<body>
+<div class="container">
+	<h1>popover 테스트</h1>
+	<button id="one" class="btn btn-info" 
+	data-title="제목" 
+	data-content="내용입니다." 
+	data-toggle="popover" 
+	data-placement="bottom">click</button>
+
+
+
+
+	<div class="row">
+		<div class="col-xs-6">
+			<input type="text" 
+				data-title="제목" 
+				data-content="내용입니다." 
+				data-toggle="popover" 
+				data-placement="bottom" class="form-control" id="myInput">
+		</div>
+		<div class="col-xs-6">
+			<button class="btn btn-primary btn-block" id="myBtn">Press</button>
+		</div>
+	</div>
+</div>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/bootstrap.js"></script>	
+<script>
+	/*
+	var isHide = true;
+	$("#myBtn").click(function(){
+		$("#myInput").popover(isHide ? "show" : "hide");
+		isHide = !isHide;
+	});
+	*/
+	// 또다른 방법
+	$("#myInput").popover({
+		trigger:"manual",
+		title:"제목",
+		content:"내용",
+		placement:"top"
+	})
+
+	$("#myBtn").click(function(){
+		$("#myInput").popover("toggle")
+	});
+</script>
+</body>
+</html>

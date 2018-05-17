@@ -1,0 +1,27 @@
+이정호
+아현동
+O형
+
+이름:이정호
+주소:아현동
+혈액형:o형
+
+이름:"이정호"
+주소:"아현동"
+혈액형:"o형"
+
+name:"이정호"
+addr:"아현동"
+blood:"o형"
+
+{
+	"name":"이정호",
+	"addr":"아현동",
+	"blood":"O형"
+}
+
+<member>
+	<name>이정호</name>
+	<addr>아현동</addr>
+	<blood>O형</blood>
+</member>

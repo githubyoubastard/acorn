@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step16_example.html</title>
+	<style>
+		/* class 속성의 value 가 box 인 요소에 적용할 css */
+		.box{
+			width: 100px;
+			height: 100px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+<div class="box">div1</div>
+<div class="box">div2</div>
+<div class="box">div3</div>
+<script>
+	/*
+		div 3 개의 배경색을 하나씩 노란색으로 주기적으로 바꾸기 
+	*/
+	var divs=document.querySelectorAll(".box");
+	//현재 배경색이 노란색인 div 의 index
+	var currentIndex=0;
+
+	setInterval(function(){
+		currentIndex++;
+		//만일 없는 인덱스라면
+		if(currentIndex == divs.length){
+			currentIndex=0;//다시 처음으로 되돌리기 
+		}
+		changeColor(currentIndex);
+	}, 1000);
+
+	//div 의 배경색을 바꾸는 함수 
+	var changeColor=function(index){
+		//일단 모든 div 의 배경색을 white 로 바꾼다.
+		for(var i=0; i<divs.length; i++){
+			divs[i].style.backgroundColor="white";
+		}
+		//인자로 전달 받은 div 만 배경색을 yellow 로 바꾼다.
+		divs[index].style.backgroundColor="yellow";
+	};
+
+	changeColor(0);
+</script>
+</body>
+</html>

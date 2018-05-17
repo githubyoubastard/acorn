@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step13_event3.html</title>
+	<style>
+		/* id 가 myBox 인 요소에 적용할 css */
+		#myBox{
+			width: 100px;
+			height: 100px;
+			border: 1px solid red;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<h3>마우스 이벤트 처리</h3>
+<div id="myBox">box</div>
+<script>
+	document.querySelector("#myBox")
+		.addEventListener("mouseover", function(){
+			// this 라는 예약어는 mouseover 이벤트가 일어난
+			// 객체의 참조값(키값)을 가리킨다. 
+			this.style.backgroundColor="gray";
+		});
+
+	document.querySelector("#myBox")
+		.addEventListener("mouseout", function(){
+			console.log("mouseout!");
+			// this 라는 예약어는 mouseout 이벤트가 일어난
+			// 객체의 참조값(키값)을 가리킨다.
+			this.style.backgroundColor="white";
+		});
+
+	document.querySelector("#myBox")
+		.addEventListener("mousedown", function(){
+			console.log("mousedown!");
+			// this 라는 예약어는 mousedown 이벤트가 일어난
+			// 객체의 참조값(키값)을 가리킨다.
+			this.style.backgroundColor="pink";
+		});
+</script>	
+</body>
+</html>

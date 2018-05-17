@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_function4.html</title>
+</head>
+<body>
+<h3>function 테스트</h3>
+<script>
+	// object type 을 리턴해 주는 함수 
+	var getMember=function(){
+		var mem={
+			num:1,
+			name:"김구라",
+			addr:"노량진"
+		};
+		return mem;
+	};
+
+	var mem1=getMember(); // object
+	var result=mem1.num;  // 1
+	var result2=mem1.name; // "김구라"
+	var result3=mem1.addr; // "노량진"
+
+	// 배열을 리턴해주는 함수 
+	var getNums=function(){
+		var nums=[10,20,30,40,50];	
+		return nums;
+	};
+
+	var nums=getNums();   //array
+	var result4=nums[0];  //10
+	var result5=nums[1];  //20
+	var result6=nums[2];  //30
+
+</script>	
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example4.html</title>
+</head>
+<body>
+<button id="printNum">숫자 출력</button>
+<button id="printName">이름 출력</button>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+	var members=[{num:1, name:"김구라"},{num:2, name:"해골"}];
+	members.push({num:3, name:"원숭이"});
+	members.push({num:4, name:"주뎅이"});
+	members.push({num:5, name:"덩어리"});
+
+	/*
+		숫자 출력 버튼을 누르면 div 의 innerText 에 숫자 출력
+		이름 출력 버튼을 누르면 div 의 innerText 에 이름 출력
+	*/
+	document.querySelector("#printNum")
+	.addEventListener("click", function(){
+		var divs=document.querySelectorAll("div");
+		for(var i=0; i<divs.length; i++){
+			divs[i].innerText=members[i].num;
+		}
+	});
+
+	document.querySelector("#printName")
+	.addEventListener("click", function(){
+		var divs=document.querySelectorAll("div");
+		
+		divs.forEach(function(item, index){
+			// item 은 div 의 참조값이 순서대로 전달된다. 
+			item.innerText=members[index].name;
+		});
+	});
+</script>
+</body>
+</html>

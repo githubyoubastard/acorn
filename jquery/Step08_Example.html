@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_Example.html</title>
+	<style>
+		.container{
+			width: 768px;
+			margin: 0 auto; /* 가운데 정렬 */
+		}
+		.wrapper{
+			height: 400px;
+			position: relative;
+			background-color: #999;
+			overflow: hidden;
+		}
+		.menu{
+			width: 200px;
+			height: 400px;
+			position: absolute;
+			top: 0;
+			left: -200px;
+			background-color: #00ff00;
+			z-index: 10;
+		}
+		.backdrop{
+			z-index: 9;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: pink;
+			opacity: 0.6;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<h1>animate 응용</h1>
+	<button id="menuBtn">menu</button>
+	<div class="wrapper">
+		<div class="menu">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Game</a></li>
+				<li><a href="#">Cafe</a></li>
+				<li><a href="#">Contacts</a></li>
+			</ul>
+		</div>
+		<h1>오늘의 인물</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis rem nisi necessitatibus, impedit perspiciatis quibusdam voluptas, aliquam sit minus in incidunt tempore? Ipsum corrupti repellat nemo nihil voluptate minus, quo.</p>
+		<div class="backdrop"></div>
+	</div>
+</div>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+	$("#menuBtn").click(function(){
+		$(".menu").animate({
+			left:"0px"
+		}, 600, function(){
+			$(".backdrop").show();
+		});
+	});
+
+	$(".wrapper").click(function(){
+		$(".menu").animate({
+			left:"-200px"
+		}, 200, function(){
+			$(".backdrop").hide();
+		});
+	});
+</script>	
+</body>
+</html>

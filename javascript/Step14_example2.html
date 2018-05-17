@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example2.html</title>
+</head>
+<body>
+<div>div1</div>
+<div>div2</div>
+<div>div3</div>
+<div>div4</div>
+<div>div5</div>
+<div>div6</div>
+<div>div7</div>
+<div>div8</div>
+<div>div9</div>
+<div>div10</div>
+<button id="changeBtn">눌러보셈</button>
+<script>
+	// 모든 div 의 참조값을 배열에 담아오기 
+	var divs=document.querySelectorAll("div");
+	// 짝수번째 div 의 배경색을 yellow 로 바꾸는 작업을 해 보세요.
+	/*
+	divs[0].style.backgroundColor="yellow";
+	divs[2].style.backgroundColor="yellow";
+	divs[4].style.backgroundColor="yellow";
+	divs[6].style.backgroundColor="yellow";
+	divs[8].style.backgroundColor="yellow";
+	*/
+
+	document.querySelector("#changeBtn")
+		.addEventListener("click", function(){
+			for(var i=0; i<divs.length; i++){		
+				if(i%2 == 0){
+					divs[i].style.backgroundColor="yellow";
+				}
+			}
+
+			divs.forEach(function(item, index){
+				if(index%2 == 0){
+					item.innerText="짝수행 입니다.";
+				}
+			});
+		});
+
+</script>
+</body>
+</html>
