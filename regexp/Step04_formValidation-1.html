@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>this</title>
+	<title>Step04_formValidation.html</title>
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 </head>
 <body>
 <div class="container">
 	<h3>회원가입 폼입니다.</h3>
 	<form action="signup" id="myForm">
-		<div class="form-group has-error has-feedback">
+		<div class="form-group has-feedback">
 			<label for="id" class="control-label">아이디</label>
 			<input type="text" class="form-control" id="id"/>
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -19,11 +17,11 @@
 			<p class="help-block">영문자로 시작하세요.</p>
 			<p class="help-block">최소 5글자 최대 10글자 이내로 입력하세요.</p>
 		</div>
-		<div class="form-group has-error has-feedback">
+		<div class="form-group has-feedback">
 			<label for="email" class="control-label">이메일</label>
-			<input type="text" class="form-control" id="email"/>
-			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			<input type="text" class="form-control" id="email" />
+			<span class="fail2 glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="success2 glyphicon glyphicon-ok form-control-feedback"></span>
 			<p class="fail2 help-block">이메일 형식에 맞게 입력하세요.</p>
 		</div>
 		<div class="form-group has-error has-feedback">
@@ -43,17 +41,38 @@
 </div>
 <script src="js/jquery-3.3.1.js"></script>
 <script>
-	$("p").hide();
-	$("span").hide();
-	$(".has-error").removeClass();	
+	var reg1=/^[a-z]/;
+	var reg2=/^.{5,10}$/;
+	var reg3=/^[\w]+$/;
 
-	var reg1=/^[\w]+$/;
-	var reg2=/^[a-zA-Z]/;
-	var reg3=/^.{5,10}$/;
 
-	$("#id").click(function(){
+	$("#id").parent().find("p").hide();
+	$("#id").parent().removeClass("has-success has-error");
+	$("#id").parent().find("span").removeClass("glyphicon-remove glyphicon-ok");
+
+		$("#id").keyup(function(){
+		$(this).parent().find("p").hide();
+		$(this).parent().removeClass("has-success has-error");
+		$("#id").parent().find("span").removeClass("glyphicon-remove glyphicon-ok")
+
+		var str=$(this).val();
+		var isOk=true;
+
+		//조건부로 해당 comment 만 보이게 한다.
+		if(reg1.test(str)==false){
+			$($(this).parent().find("p")[1]).show();
+			isOk=false;
+		}
 		
+		if(isOk){
+			$(this).parent().addClass("has-success");
+			$(this).parent().find("span").addClass("glyphicon-ok");
+		}else{
+			$(this).parent().addClass("has-error");	
+			$(this).parent().find("span").addClass("glyphicon-remove");
+		}
 	});
-</script>
+
+</script>	
 </body>
 </html>
