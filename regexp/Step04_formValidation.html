@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>this</title>
+	<title>Step04_formValidation.html</title>
 	<link rel="stylesheet" href="css/bootstrap.css"/>
 	<style>
-		.success, .fail{display:hidden;}
+		/* feedback 아이콘과 메세지를 처음에는 보이지 않게 한다.*/
+		.form-control-feedback, .help-block{
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -16,28 +17,29 @@
 	<form action="signup" id="myForm">
 		<div class="form-group has-feedback">
 			<label for="id" class="control-label">아이디</label>
-			<input type="text" class="form-control" id="id"/>
-			<span class="fail glyphicon glyphicon-remove form-control-feedback"></span>
-			<span class="success glyphicon glyphicon-ok form-control-feedback"></span>
-			<p class="fail help-block">특수 문자는 허용하지 않습니다.</p>
-			<p class="fail help-block">영문자로 시작하세요.</p>
-			<p class="fail help-block">최소 5글자 최대 10글자 이내로 입력하세요.</p>
+			<input type="text" class="form-control" id="id" />
+			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			<p id="idError1" class="help-block">특수 문자는 허용하지 않습니다.</p>
+			<p id="idError2" class="help-block">영문자로 시작하세요.</p>
+			<p id="idError3" class="help-block">최소 5글자 최대 10글자 이내로 입력하세요.</p>
 		</div>
 		<div class="form-group has-feedback">
 			<label for="email" class="control-label">이메일</label>
-			<input type="text" class="form-control" id="email"/>
+			<input type="text" class="form-control" id="email" />
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			<p class="fail2 help-block">이메일 형식에 맞게 입력하세요.</p>
+			<p class="help-block">이메일 형식에 맞게 입력하세요.</p>
 		</div>
 		<div class="form-group has-feedback">
 			<label for="pwd1" class="control-label">비밀번호</label>
 			<input type="password" class="form-control" id="pwd1" />
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			<p class="help-block">아래와 동일한지 비밀번호를 확인하세요</p>
-			<p class="help-block">영문자와 숫자의 조합으로 비밀번호를 작성하세요.</p>
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			<p id="pwdError1" class="help-block">아래와 동일한지 비밀번호를 확인하세요</p>
+			<p id="pwdError2" class="help-block">영문자와 숫자의 조합으로 비밀번호를 작성하세요.</p>
 		</div>
-		<div class="form-group has-error has-feedback">
+		<div class="form-group has-feedback">
 			<label for="pwd2" class="control-label">비밀번호 확인</label>
 			<input type="password" class="form-control" id="pwd2" />
 			<span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -47,29 +49,135 @@
 </div>
 <script src="js/jquery-3.3.1.js"></script>
 <script>
-	var reg1=/^[\w]+$/;
-	var reg2=/^[a-zA-Z]/;
-	var reg3=/^.{5,10}$/;
+	//특수문자를 허용하지 않는 정규 표현식
+	var idReg1=/^[a-zA-Z0-9]*$/;
+	//영문자로 시작 해야되는 정규 표현식
+	var idReg2=/^[a-zA-z]/;
+	//최소 5글자 최대 10글자를 검증할 정규 표현식
+	var idReg3=/^.{5,10}$/;
 
+	//아이디 검증 통과 여부
+	var isIdValid=false;
 
-	$("#id").keyup(function(){
-		var id=$("#id").val();
-		var result1=reg1.test(id);
-		var result2=reg2.test(id);
-		var result3=reg3.test(id);
+	//이메일을 검증할 정규 표현식 
+	var emailReg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+	//이메일 검증 통과 여부
+	var isEmailValid=false;
 
-		if(result1||result2||result3){
-			$("#id").parent().addClass("has-success");
-			$("#id").parent().removeClass("has-error");
-			$(".fail").hide();
-			$(".success").show();
-		}else{
-			$("#id").parent().addClass("has-error");
-			$("#id").parent().removeClass("has-success");
-			$(".fail").show();
-			$(".success").hide();
+	//비밀번호를 검증할 정규 표현식
+	var pwdReg=/^[a-zA-Z0-9]*$/; //특수문자 허용하지 않음
+	var pwdReg2=/[a-zA-Z]+/; //영문자 포함 여부
+	var pwdReg3=/[0-9]+/; //숫자 포함 여부 
+	//비밀번호 검증 통과 여부
+	var isPwdValid=false;
+
+	//아이디 입력란에 input 이벤트가 일어 났을때 실행할 함수 등록  
+	$("#id").on("input", function(){
+		//입력한 문자열을 읽어온다.
+		var inputId=$(this).val();
+		//정규 표현식으로 검증한다.
+		var result1=idReg1.test(inputId);
+		var result2=idReg2.test(inputId);
+		var result3=idReg3.test(inputId);
+
+		//일단 모든 아이디 오류 메세지를 안보이게 한다.
+		$("#idError1, #idError2, #idError3").hide();
+
+		//id 유효성 여부를 일단 true 로 바꿔 놓고
+		isIdValid=true; 
+
+		//만일 통과 하지 못했으면 
+		if(result1==false){
+			$("#idError1").show();
+			isIdValid=false;
 		}
+		if(result2==false){
+			$("#idError2").show();
+			isIdValid=false;
+		}
+		if(result3==false){
+			$("#idError3").show();
+			isIdValid=false;
+		}
+		//색상과 아이콘을 바꿔주는 함수 호출 
+		setValid($(this), isIdValid);
 	});
-</script>
+
+	//이메일을 입력했을때 실행할 함수 등록 
+	$("#email").on("input", function(){
+		//입력한 이메일 주소를 읽어와서 
+		var inputEmail=$(this).val();
+		//이메일 정규 표현식 통과 여부를 얻어낸다. 
+		var result=emailReg.test(inputEmail);
+		if(result){
+			isEmailValid=true;
+			$(this).parent().find(".help-block").hide();
+		}else{
+			isEmailValid=false;
+			$(this).parent().find(".help-block").show();
+		}
+		//색상과 아이콘을 변화 시키는 함수 호출 
+		setValid($(this), isEmailValid);
+	});
+
+	// 색상과 아이콘을 변화 시키는 함수 
+	function setValid($input, isValid){
+		//일단 .has-success 와 .has-error 를 제거 한후 
+		$input.parent().removeClass("has-success has-error");
+		//일단 feedback 아이콘을 모드 안보이게 한후 
+		$input.parent().find(".form-control-feedback").hide();
+		if(isValid){
+			$input
+			.parent()
+			.addClass("has-success")
+			.find(".glyphicon-ok")
+			.show();
+		}else{//정규 표현식을 어느 하나라도 통과 하지 못한 경우 
+			$input
+			.parent()
+			.addClass("has-error")
+			.find(".glyphicon-remove")
+			.show();
+		}
+		//가입 버튼 상태 변화 시키기
+		setSubmit();
+	}
+	//비밀번호를 입력했을때 실행할 함수 등록 
+	$("#pwd1, #pwd2").on("input", function(){
+		//입력한 비밀번호를 양쪽 모두 읽어온다. 
+		var inputPwd1=$("#pwd1").val();
+		var inputPwd2=$("#pwd2").val();
+		//비밀 번호를 같게 입력했는지 여부 
+		var isEqual=inputPwd1==inputPwd2;
+		//정규표현식 통과 여부 
+		var result1=pwdReg.test(inputPwd1);
+		var result2=pwdReg2.test(inputPwd1);
+		var result3=pwdReg3.test(inputPwd1);
+		//일단 모든 feedback 메세지를 안보이게 하고 
+		$("#pwdError1, #pwdError2").hide();
+		//일단 true 로 해 놓고 
+		isPwdValid=true;
+		if(!isEqual){//양쪽을 동일하게 입력하지 않았을때
+			$("#pwdError1").show();
+			isPwdValid=false;
+		}
+		// 3 개의 정규표현식을 모두 통과 하지 못했을때 
+		if(!(result1 && result2 && result3)){
+			$("#pwdError2").show();
+			isPwdValid=false;
+		}
+		//색상과 아이콘을 바꾸는 함수 호출 
+		setValid($("#pwd1"), isPwdValid);
+	});
+
+	//가입 버튼의 상태를 컨트롤 하는 함수 
+	function setSubmit(){
+		if(isIdValid && isEmailValid && isPwdValid){
+			$("button[type=submit]").attr("disabled", false);
+		}else{
+			$("button[type=submit]").attr("disabled", true);
+		}
+	}
+</script>	
 </body>
 </html>
